@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta name="theme-color" content="#000000" />
+
+		<link rel="manifest" href="manifest.json" />
+
+		<title>react-streamdeck</title>
+	</head>
+
+	<body>
+		<script src="common.js"></script>
+    <%% #extraFeatures.obs %%>
+    <!-- We include obs-websocket directly because the repo doesnt export very cleanly for usage in our React app. We also need to make sure it is available for the app.js file to access, which is not currently bundled or compiled. -->
+		<script src="obs-websocket.js"></script>
+		<%% /extraFeatures.obs %%>
+		<script src="app.js"></script>
+	</body>
+</html>

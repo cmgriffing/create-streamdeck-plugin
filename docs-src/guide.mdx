@@ -1,0 +1,60 @@
+---
+name: 🗺️ Getting Started
+route: /getting-started
+---
+
+# 🗺️ Getting Started
+
+Here we will help guide you through the usage of the CLI tool.
+
+## Running the command
+
+To run the command we recommend using `npx`:
+
+```
+npx create-streamdeck-plugin
+```
+
+This will ensure that you are always running the latest version.
+
+### Or Global
+
+You can also install it globally, if you insist:
+
+```
+yarn global create-streamdeck-plugin
+```
+
+or
+
+```
+npm install -g create-streamdeck-plugin
+```
+
+Then just run it:
+
+```
+create-streamdeck-plugin
+```
+
+## The Interactive Steps
+
+When running the command this tool currently only supports a guided creation process. In the future, it will allow an automated workflow via cli arguments.
+
+### Step 1: Project Name
+
+This value is used in various places. We handle various cases as needed for injecting the name within the app. eg: dasherized, camelCased, and PascalCased.
+
+### Step 2: Project Path
+
+The default value is dasherized form your project name as a subfolder of your current path. You can modify this value as you see fit. eg: Pointing at the current directory would be `./`
+
+### Step 3: Project Features
+
+At this step you can select some of the boilerplate that can be autofilled for you. OBS, Spotify, and more on the way.
+
+### Step 4: Scaffolding Finished
+
+Hooray! You are done. Navigate to the path you installed into in [Step 2](#step-2-project-path) and open your favorite editor.
+
+See [Development](./development) for the next steps.

@@ -1,0 +1,37 @@
+{
+	"Actions": [
+		{
+			"Icon": "action/images/actionimage",
+			"Name": "<%% camelizedProjectName %%>",
+			"States": [
+				{
+					"Image": "action/images/action"
+				}
+			],
+			"Tooltip": "This is an example tooltip",
+			"UUID": "com.<%% projectNamespace %%>.<%% projectName %%>.action"
+		}
+	],
+	"SDKVersion": 2,
+	"Author": "Elgato Systems",
+	"CodePath": "code.html",
+	"PropertyInspectorPath": "propertyinspector/index.html",
+	"Description": "Example description",
+	"Name": "<%% camelizedProjectName %%>",
+	"Icon": "action/images/action",
+	"URL": "",
+	"Version": "1.0.0",
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.11"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Software": {
+		"MinimumVersion": "4.1"
+	}
+}
