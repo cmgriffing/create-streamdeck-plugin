@@ -1,9 +1,9 @@
-/* global $SD */
+/* global $SD, OBSWebSocket, lox */
 import React, { useState, useEffect, useReducer } from "react";
 
 import {
-  ExampleComponent,
   createUseSDAction,
+  SDButton,
   SDNumberInput,
   SDTextInput,
   SDSelectInput,
@@ -15,31 +15,26 @@ import {
 } from "react-streamdeck";
 
 // Slightly modified sdpi.css file. Adds 'data-' prefixes where needed.
-import "react-streamdeck/dist/sdpi.css";
+import "react-streamdeck/dist/css/sdpi.css";
 
-import EventList from "./EventList";
+const createGetSettings = _sd => () => {
+  if (_sd.api.getSettings) {
+    _sd.api.getSettings(_sd.uuid);
+  } else {
+    _sd.api.common.getSettings(_sd.uuid);
+  }
+};
+
+const useSDAction = createUseSDAction({
+  useState,
+  useEffect
+});
 
 export default function App() {
-  const createGetSettings = _sd => () => {
-    if (_sd.api.getSettings) {
-      _sd.api.getSettings(_sd.uuid);
-    } else {
-      _sd.api.common.getSettings(_sd.uuid);
-    }
-  };
-
   const getSettings = createGetSettings($SD);
   useEffect(getSettings, []);
 
-  const useSDAction = createUseSDAction({
-    useState,
-    useEffect
-  });
-
   const connectedResult = useSDAction("connected");
-  const sendToPropertyInspectorResult = useSDAction("sendToPropertyInspector");
-
-  // const globalSettings = useSDAction("didReceiveGlobalSettings");
 
   const [settings, setSettings] = createUsePluginSettings({
     useState,
@@ -58,13 +53,11 @@ export default function App() {
 
   <%% #extraFeatures.obs %%>
 
-  const [obsEvents, setOBSEvents] = useState([]);
   const [obs, setOBS] = useState(null);
 
   useEffect(() => {
     const obsInstance = new OBSWebSocket();
     obsInstance.connect().then(result => {
-      console.log("hack", result);
       setOBS(obsInstance);
     });
   }, []);
@@ -92,19 +85,16 @@ export default function App() {
 
   console.log({
     connectedResult,
-    sendToPropertyInspectorResult,
     settings
   });
 
   return (
     <div>
-
       <%% #extraFeatures.obs %%>
-      <EventList events={obsEvents} />
       <button onClick={handleClick}>OBS:GetCurrentScene (check logs)</button>
       <%% /extraFeatures.obs %%>
 
-      <ExampleComponent
+      <SDButton
         text={settings.buttonState}
         onSettingsChange={() => {
           const newState = {

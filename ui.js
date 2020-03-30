@@ -102,7 +102,7 @@ const App = ({ name }) => {
 						placeholder={defaultProjectName}
 						value={projectName + ""}
 						onSubmit={name => {
-							setProjectName(+name || +defaultProjectName);
+							setProjectName(name || defaultProjectName);
 							setProjectNameSelected(true);
 						}}
 					/>

@@ -1,4 +1,4 @@
-/* global $CC, Utils, $SD, OBSWebSocket */
+/* global $CC, Utils, $SD, OBSWebSocket, OBSWebSocket */
 
 /**
  * Here are a couple of wrappers we created to help ypu quickly setup
@@ -15,9 +15,10 @@
 $SD.on("connected", jsonObj => connected(jsonObj));
 $SD.on("deviceDidConnect", jsonObj => console.log("deviceDidConnect", jsonObj));
 
+const obs = new OBSWebSocket();
+obs.connect();
+
 async function connected(jsn) {
-	//const { context } = jsn.actionInfo;
-	let context = "testing";
 	/** subscribe to the willAppear and other events */
 	$SD.on(
 		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.willAppear",
@@ -25,15 +26,7 @@ async function connected(jsn) {
 	);
 	$SD.on(
 		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.keyUp",
-		jsonObj => {
-			$SD.api.getSettings(context);
-			$SD.api.sendToPropertyInspector(
-				context,
-				{ testing: "testing" },
-				"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action"
-			);
-			return action.onKeyUp(jsonObj);
-		}
+		jsonObj => action.onKeyUp(jsonObj)
 	);
 	$SD.on(
 		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.sendToPlugin",
@@ -41,37 +34,7 @@ async function connected(jsn) {
 	);
 	$SD.on(
 		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.didReceiveSettings",
-		jsonObj => {
-			action.onDidReceiveSettings(jsonObj);
-			$SD.api.sendToPropertyInspector(
-				context,
-				{ testing: "testing" },
-				"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action"
-			);
-		}
-	);
-	$SD.on(
-		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.propertyInspectorDidAppear",
-		jsonObj => {
-			context = jsonObj.context;
-			console.log(
-				"%c%s",
-				"color: white; background: black; font-size: 13px;",
-				"[app.js]propertyInspectorDidAppear:",
-				jsonObj
-			);
-			$SD.api.getSettings(context);
-		}
-	);
-	$SD.on(
-		"com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action.propertyInspectorDidDisappear",
-		jsonObj => {
-			console.log(
-				"%c%s",
-				"color: white; background: red; font-size: 13px;",
-				"[app.js]propertyInspectorDidDisappear:"
-			);
-		}
+		jsonObj => action.onDidReceiveSettings(jsonObj)
 	);
 }
 
@@ -85,19 +48,8 @@ const action = {
 			"color: white; background: red; font-size: 15px;",
 			"[app.js]onDidReceiveSettings:"
 		);
-		this.settings = Utils.getProp(jsn, "payload.settings", {});
+		this.settings[jsonObj.context] = Utils.getProp(jsn, "payload.settings", {});
 		this.doSomeThing(this.settings, "onDidReceiveSettings", "orange");
-
-		/**
-		 * In this example we put a HTML-input element with id='mynameinput'
-		 * into the Property Inspector's DOM. If you enter some data into that
-		 * input-field it get's saved to Stream Deck persistently and the plugin
-		 * will receice the updated 'didReceiveSettings' event.
-		 * Here we look for this setting and use it to change the title of
-		 * the key.
-		 */
-
-		//this.setTitle(jsn);
 	},
 
 	/**
@@ -112,22 +64,17 @@ const action = {
 			"You can cache your settings in 'onWillAppear'",
 			jsn.payload.settings
 		);
+
 		/**
 		 * "The willAppear event carries your saved settings (if any). You can use these settings
 		 * to setup your plugin or save the settings for later use.
 		 * If you want to request settings at a later time, you can do so using the
 		 * 'getSettings' event, which will tell Stream Deck to send your data
-		 * (in the 'didReceiceSettings above)
+		 * (in the 'didReceiveSettings above)
 		 *
 		 * $SD.api.getSettings(jsn.context);
 		 */
-		this.settings = jsn.payload.settings;
-
-		// nothing in the settings pre-fill something just for demonstration purposes
-		// if (!this.settings || Object.keys(this.settings).length === 0) {
-		//     this.settings.mynameinput = 'TEMPLATE';
-		// }
-		// this.setTitle(jsn);
+		this.settings[jsonObj.context] = jsn.payload.settings;
 	},
 
 	onKeyUp: async function(jsn) {
@@ -162,12 +109,15 @@ const action = {
 	 */
 
 	setTitle: function(jsn) {
-		if (this.settings && this.settings.hasOwnProperty("mynameinput")) {
+		if (
+			this.settings[jsonObj.context] &&
+			this.settings[jsonObj.context].hasOwnProperty("mynameinput")
+		) {
 			console.log(
 				"watch the key on your StreamDeck - it got a new title...",
-				this.settings.mynameinput
+				this.settings[jsonObj.context].mynameinput
 			);
-			$SD.api.setTitle(jsn.context, this.settings.mynameinput);
+			$SD.api.setTitle(jsn.context, this.settings[jsonObj.context].mynameinput);
 		}
 	},
 
@@ -183,6 +133,6 @@ const action = {
 			`color: white; background: ${tagColor || "grey"}; font-size: 15px;`,
 			`[app.js]doSomeThing from: ${caller}`
 		);
-		// console.log(inJsonData);
+		console.log({ inJsonData });
 	}
 };

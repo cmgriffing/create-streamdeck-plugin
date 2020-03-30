@@ -38,13 +38,17 @@ WebSocket.prototype.sendJSON = function(jsn, log) {
   // }
 };
 
+const lox = function(string) {
+  try {
+    string = $localizedStrings[string] || string;
+  } catch (e) {}
+  return string;
+};
+
 /* eslint no-extend-native: ["error", { "exceptions": ["String"] }] */
 String.prototype.lox = function() {
   var a = String(this);
-  try {
-    a = $localizedStrings[a] || a;
-  } catch (b) {}
-  return a;
+  return lox(a);
 };
 
 String.prototype.sprintf = function(inArr) {

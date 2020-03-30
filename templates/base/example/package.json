@@ -38,7 +38,7 @@
 		"react": "^16.4.1",
 		"react-dev-utils": "^5.0.2",
 		"react-dom": "^16.4.1",
-		"react-streamdeck": "1.0.1",
+		"react-streamdeck": "^1.2.2",
 		"resolve": "1.6.0",
 		"style-loader": "0.19.0",
 		"sw-precache-webpack-plugin": "0.11.4",
@@ -50,13 +50,13 @@
 	},
 	"scripts": {
 		"start": "",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "export:base": "node scripts/export.js",
-    "export": "npm-run-all -s build export:base",
-    "dev:base": "node scripts/dev.js",
-    "dev": "NODE_ENV=development yarn build && yarn dev:base",
-    "dev:watch": "nodemon -w public -w src --exec \"yarn dev\""
+		"build": "node scripts/build.js",
+		"test": "node scripts/test.js --env=jsdom",
+		"export:base": "node scripts/export.js",
+		"export": "npm-run-all -s build export:base",
+		"dev:base": "node scripts/dev.js",
+		"dev": "NODE_ENV=development yarn build && yarn dev:base",
+		"dev:watch": "nodemon -w public -w src --exec \"yarn dev\""
 	},
 	"jest": {
 		"collectCoverageFrom": [
