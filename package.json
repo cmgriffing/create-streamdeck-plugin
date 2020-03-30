@@ -1,6 +1,6 @@
 {
 	"name": "create-streamdeck-plugin",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"license": "MIT",
 	"bin": "cli.js",
 	"repository": "cmgriffing/create-streamdeck-plugin",
@@ -45,7 +45,7 @@
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.19.0",
 		"eslint-plugin-react-hooks": "^2.5.0",
-    "gh-pages": "^1.2.0",
+		"gh-pages": "^1.2.0",
 		"ink-testing-library": "^1.0.3",
 		"react-dom": "^16.13.1",
 		"sugar": "^2.0.6",
