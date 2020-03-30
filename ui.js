@@ -4,9 +4,7 @@ const path = require("path");
 const fs = require("fs-extra");
 const mustache = require("mustache");
 const glob = require("glob");
-const {
-	String: { camelize }
-} = require("sugar");
+const camelize = require("./utils/camelize");
 
 // React deps
 const React = require("react");
