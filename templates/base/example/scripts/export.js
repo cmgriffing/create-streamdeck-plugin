@@ -1,5 +1,5 @@
 const os = require("os");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 const http = require("https");
 const child_process = require("child_process");
@@ -9,7 +9,7 @@ const platforms = {
 		distributionToolFilename: "DistributionTool.exe",
 		distributionToolUrl:
 			"https://developer.elgato.com/documentation/stream-deck/distributiontool/",
-		distributionToolUrlFilename: "DistributionToolWindow.zip"
+		distributionToolUrlFilename: "DistributionToolWindows.zip"
 	},
 	darwin: {
 		distributionToolFilename: "DistributionTool",
@@ -63,26 +63,23 @@ http
 						fs.removeSync(
 							`./Release/com.<%%projectNamespace%%>.<%%projectName%%>.streamDeckPlugin`
 						);
-						child_process.execSync(
-							`./${currentPlatform.distributionToolFilename} -b -i ./build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin -o ./Release`
-						);
+						let distributionCommand = `${currentPlatform.distributionToolFilename} -b -i ./build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin -o ./Release`;
+						if (os.platform() !== "win32") {
+							distributionCommand = "./" + distributionCommand;
+						}
+						child_process.execSync(distributionCommand);
 						console.log("Plugin created in Release directory.");
+						process.exit(0);
 					} catch (e) {
-						console.log(
-							"Error running Distribution Tool.",
-							e,
-							e.stdout.toString("utf-8"),
-							e.stderr.toString("utf-8")
-						);
+						console.log("Error running Distribution Tool.", e);
+						process.exit(-1);
 					}
-					process.exit();
 				});
 			});
 		}
 	)
 	.on("error", function(err) {
 		// Handle errors
-		fs.unlink(dest);
 		console.log("Error fetching DistributionTool for your platform.");
 		process.exit(-1);
 	});
