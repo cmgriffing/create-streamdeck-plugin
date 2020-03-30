@@ -5,7 +5,7 @@ const fs = require("fs-extra");
 const mustache = require("mustache");
 const glob = require("glob");
 const {
-	string: { camelize }
+	String: { camelize }
 } = require("sugar");
 
 // React deps
