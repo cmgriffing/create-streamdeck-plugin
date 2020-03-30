@@ -4,8 +4,7 @@ const fs = require("fs-extra");
 
 const platforms = {
 	win32: {
-		pluginsFolderPath:
-			"%appdata%\\Elgato\\StreamDeck\\Plugins\\com.elgato.StreamDeck\\Plugins\\"
+		pluginsFolderPath: `${os.homedir()}\\AppData\\Elgato\\StreamDeck\\Plugins\\com.elgato.StreamDeck\\Plugins\\`
 	},
 	darwin: {
 		pluginsFolderPath: `${os.homedir()}/Library/Application\\ Support/com.elgato.StreamDeck/Plugins/`
