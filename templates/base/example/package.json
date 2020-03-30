@@ -55,7 +55,7 @@
 		"export:base": "node scripts/export.js",
 		"export": "npm-run-all -s build export:base",
 		"dev:base": "node scripts/dev.js",
-		"dev": "NODE_ENV=development yarn build && yarn dev:base",
+		"dev": "cross-env NODE_ENV=development yarn build && yarn dev:base",
 		"dev:watch": "nodemon -w public -w src --exec \"yarn dev\""
 	},
 	"jest": {
