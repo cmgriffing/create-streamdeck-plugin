@@ -1,6 +1,6 @@
 {
 	"name": "create-streamdeck-plugin",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"license": "MIT",
 	"bin": "cli.js",
 	"repository": "cmgriffing/create-streamdeck-plugin",
@@ -21,6 +21,7 @@
 		"utils"
 	],
 	"dependencies": {
+		"camelize": "^1.0.0",
 		"cli-spinners": "^2.2.0",
 		"fs-extra": "^8.1.0",
 		"glob": "^7.1.6",
