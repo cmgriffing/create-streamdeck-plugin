@@ -1,6 +1,6 @@
 {
 	"name": "create-streamdeck-plugin",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"license": "MIT",
 	"bin": "cli.js",
 	"repository": "cmgriffing/create-streamdeck-plugin",
@@ -35,7 +35,8 @@
 		"meow": "^6.0.1",
 		"mustache": "^4.0.0",
 		"prop-types": "^15.7.2",
-		"react": "^16.13.1"
+		"react": "^16.13.1",
+		"sugar": "^2.0.6"
 	},
 	"devDependencies": {
 		"@babel/preset-react": "^7.8.3",
@@ -49,7 +50,6 @@
 		"gh-pages": "^1.2.0",
 		"ink-testing-library": "^1.0.3",
 		"react-dom": "^16.13.1",
-		"sugar": "^2.0.6",
 		"xo": "^0.28.0"
 	},
 	"ava": {
