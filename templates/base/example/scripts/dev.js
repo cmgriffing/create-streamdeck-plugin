@@ -4,7 +4,7 @@ const fs = require("fs-extra");
 
 const platforms = {
 	win32: {
-		pluginsFolderPath: `${os.homedir()}\\AppData\\Roaming\\Elgato\\StreamDeck\\Plugins\\com.elgato.StreamDeck\\Plugins\\`
+		pluginsFolderPath: `${os.homedir()}\\AppData\\Roaming\\Elgato\\StreamDeck\\Plugins\\`
 	},
 	darwin: {
 		pluginsFolderPath: `${os.homedir()}/Library/Application\\ Support/com.elgato.StreamDeck/Plugins/`
@@ -28,7 +28,7 @@ switch (os.platform()) {
 	case "win32":
 		fs.copySync(
 			"build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin",
-			currentPlatform.pluginsFolderPath
+			`${currentPlatform.pluginsFolderPath}\\com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin`
 		);
 		break;
 
