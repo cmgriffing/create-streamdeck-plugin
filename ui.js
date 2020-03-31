@@ -170,6 +170,8 @@ const App = ({ name }) => {
 						onSubmit={result => {
 							setExtraFeaturesSelected(true);
 
+							setExtraFeatures(result.map(feature => feature.label));
+
 							const newExtraFeaturesMap = {};
 							result.map(feature => {
 								newExtraFeaturesMap[feature.value] = true;
