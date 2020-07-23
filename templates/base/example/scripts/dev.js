@@ -4,11 +4,11 @@ const fs = require("fs-extra");
 
 const platforms = {
 	win32: {
-		pluginsFolderPath: `${os.homedir()}\\AppData\\Roaming\\Elgato\\StreamDeck\\Plugins\\`
+		pluginsFolderPath: `${os.homedir()}\\AppData\\Roaming\\Elgato\\StreamDeck\\Plugins\\`,
 	},
 	darwin: {
-		pluginsFolderPath: `${os.homedir()}/Library/Application\\ Support/com.elgato.StreamDeck/Plugins/`
-	}
+		pluginsFolderPath: `${os.homedir()}/Library/Application\\ Support/com.elgato.StreamDeck/Plugins/`,
+	},
 };
 
 const currentPlatform = platforms[os.platform()];
@@ -22,13 +22,13 @@ if (!currentPlatform) {
 switch (os.platform()) {
 	case "darwin":
 		child_process.execSync(
-			`cp -R build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin ${currentPlatform.pluginsFolderPath}/`
+			`cp -R build/com.<%%projectNamespace%%>.<%%camelizedProjectName%%>.sdPlugin ${currentPlatform.pluginsFolderPath}/`
 		);
 		break;
 	case "win32":
 		fs.copySync(
-			"build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin",
-			`${currentPlatform.pluginsFolderPath}\\com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin`
+			"build/com.<%%projectNamespace%%>.<%%camelizedProjectName%%>.sdPlugin",
+			`${currentPlatform.pluginsFolderPath}\\com.<%%projectNamespace%%>.<%%camelizedProjectName%%>.sdPlugin`
 		);
 		break;
 

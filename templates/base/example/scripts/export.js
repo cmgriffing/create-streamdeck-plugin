@@ -9,14 +9,14 @@ const platforms = {
 		distributionToolFilename: "DistributionTool.exe",
 		distributionToolUrl:
 			"https://developer.elgato.com/documentation/stream-deck/distributiontool/",
-		distributionToolUrlFilename: "DistributionToolWindows.zip"
+		distributionToolUrlFilename: "DistributionToolWindows.zip",
 	},
 	darwin: {
 		distributionToolFilename: "DistributionTool",
 		distributionToolUrl:
 			"https://developer.elgato.com/documentation/stream-deck/distributiontool/",
-		distributionToolUrlFilename: "DistributionToolMac.zip"
-	}
+		distributionToolUrlFilename: "DistributionToolMac.zip",
+	},
 };
 
 const currentPlatform = platforms[os.platform()];
@@ -38,15 +38,15 @@ console.log(`Fetching distribution tool for platform (${os.platform()})`);
 http
 	.get(
 		`${currentPlatform.distributionToolUrl}${currentPlatform.distributionToolUrlFilename}`,
-		function(response) {
+		function (response) {
 			response.pipe(file);
-			file.on("finish", function() {
-				file.close(function() {
+			file.on("finish", function () {
+				file.close(function () {
 					console.log("Unzipping distribution tool file");
 
 					const unzipResult = child_process.spawnSync("tar", [
 						"-xf",
-						currentPlatform.distributionToolUrlFilename
+						currentPlatform.distributionToolUrlFilename,
 					]);
 
 					if (unzipResult.error) {
@@ -63,7 +63,7 @@ http
 						fs.removeSync(
 							`./Release/com.<%%projectNamespace%%>.<%%projectName%%>.streamDeckPlugin`
 						);
-						let distributionCommand = `${currentPlatform.distributionToolFilename} -b -i ./build/com.<%%projectNamespace%%>.<%%projectName%%>.sdPlugin -o ./Release`;
+						let distributionCommand = `${currentPlatform.distributionToolFilename} -b -i ./build/com.<%%projectNamespace%%>.<%%camelizedProjectName%%>.sdPlugin -o ./Release`;
 						if (os.platform() !== "win32") {
 							distributionCommand = "./" + distributionCommand;
 						}
@@ -78,7 +78,7 @@ http
 			});
 		}
 	)
-	.on("error", function(err) {
+	.on("error", function (err) {
 		// Handle errors
 		console.log("Error fetching DistributionTool for your platform.");
 		process.exit(-1);

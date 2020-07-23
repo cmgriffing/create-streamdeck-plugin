@@ -46,18 +46,18 @@ eventual options:
 
 const booleanOptions = [
 	{ label: "Yes", value: true },
-	{ label: "No", value: false }
+	{ label: "No", value: false },
 ];
 
 const availableOptionsMap = {
 	obs: "OBS",
-	spotify: "Spotify"
+	spotify: "Spotify",
 };
 
-const availableOptions = Object.keys(availableOptionsMap).map(optionKey => {
+const availableOptions = Object.keys(availableOptionsMap).map((optionKey) => {
 	return {
 		label: availableOptionsMap[optionKey],
-		value: optionKey
+		value: optionKey,
 	};
 });
 
@@ -74,11 +74,11 @@ const App = ({ name }) => {
 
 	const [
 		shouldShowVerboseExampleComments,
-		setShouldShowVerboseExampleComments
+		setShouldShowVerboseExampleComments,
 	] = useState(true);
 	const [
 		shouldShowVerboseExampleCommentsSelected,
-		setShouldShowVerboseExampleCommentsSelected
+		setShouldShowVerboseExampleCommentsSelected,
 	] = useState(false);
 
 	const [extraFeatures, setExtraFeatures] = useState([]);
@@ -115,7 +115,7 @@ const App = ({ name }) => {
 					<TextInput
 						placeholder={defaultProjectName}
 						value={projectName + ""}
-						onSubmit={name => {
+						onSubmit={(name) => {
 							setProjectName(name || defaultProjectName);
 							setProjectNameSelected(true);
 						}}
@@ -138,7 +138,7 @@ const App = ({ name }) => {
 					<TextInput
 						placeholder={defaultProjectPath}
 						value={projectPath}
-						onSubmit={path => {
+						onSubmit={(path) => {
 							setProjectPath(path || defaultProjectPath);
 							setProjectPathSelected(true);
 						}}
@@ -160,7 +160,7 @@ const App = ({ name }) => {
 					<TextInput
 						placeholder={defaultProjectNamespace}
 						value={projectNamespace}
-						onSubmit={namespace => {
+						onSubmit={(namespace) => {
 							setProjectNamespace(namespace || defaultProjectNamespace);
 							setProjectNamespaceSelected(true);
 						}}
@@ -182,7 +182,7 @@ const App = ({ name }) => {
 					<Box marginRight={1}>Show Verbose Example Comments:</Box>
 					<SelectInput
 						items={booleanOptions}
-						onSelect={selection => {
+						onSelect={(selection) => {
 							setShouldShowVerboseExampleComments(selection.value);
 							setShouldShowVerboseExampleCommentsSelected(true);
 						}}
@@ -205,13 +205,13 @@ const App = ({ name }) => {
 				<>
 					<MultiSelect
 						items={availableOptions}
-						onSubmit={result => {
+						onSubmit={(result) => {
 							setExtraFeaturesSelected(true);
 
-							setExtraFeatures(result.map(feature => feature.label));
+							setExtraFeatures(result.map((feature) => feature.label));
 
 							const newExtraFeaturesMap = {};
-							result.map(feature => {
+							result.map((feature) => {
 								newExtraFeaturesMap[feature.value] = true;
 							});
 
@@ -221,7 +221,7 @@ const App = ({ name }) => {
 								camelizedProjectName: camelize(projectName),
 								projectPath,
 								extraFeatures: newExtraFeaturesMap,
-								shouldShowVerboseExampleComments
+								shouldShowVerboseExampleComments,
 							});
 							setTimeout(() => {
 								setFinished(true);
@@ -282,11 +282,11 @@ const App = ({ name }) => {
 };
 
 App.propTypes = {
-	name: PropTypes.string
+	name: PropTypes.string,
 };
 
 App.defaultProps = {
-	name: "Stranger"
+	name: "Stranger",
 };
 
 module.exports = App;
@@ -300,7 +300,7 @@ async function startScaffoldingFileStructure(inputResults) {
 
 	// read files from plugin path
 	return Promise.all(
-		glob.sync(`${templatePath}/**/*`, { nodir: true }).map(async filePath => {
+		glob.sync(`${templatePath}/**/*`, { nodir: true }).map(async (filePath) => {
 			const relativeFilePath = filePath.slice(templatePath.length);
 			const newFilePath = `${projectPath}${relativeFilePath}`;
 			await fs.ensureFile(newFilePath);
@@ -317,7 +317,7 @@ async function startScaffoldingFileStructure(inputResults) {
 					".woff",
 					".woff2",
 					".wav",
-					".pdf"
+					".pdf",
 				].includes(path.extname(filePath))
 			) {
 				const interpolatedFileContents = mustache.render(

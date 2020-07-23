@@ -9,7 +9,7 @@
 				}
 			],
 			"Tooltip": "This is an example tooltip",
-			"UUID": "com.<%% projectNamespace %%>.<%% projectName %%>.action"
+			"UUID": "com.<%% projectNamespace %%>.<%% camelizedProjectName %%>.action"
 		}
 	],
 	"SDKVersion": 2,
