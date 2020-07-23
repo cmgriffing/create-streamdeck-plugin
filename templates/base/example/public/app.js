@@ -1,7 +1,8 @@
 /* global $CC, Utils, $SD, OBSWebSocket, OBSWebSocket */
 
+<%% #shouldShowVerboseExampleComments %%>
 /**
- * Here are a couple of wrappers we created to help ypu quickly setup
+ * Here are a couple of wrappers we created to help you quickly setup
  * your plugin and subscribe to events sent by Stream Deck to your plugin.
  */
 
@@ -11,6 +12,7 @@
  * and other information about the current environmet in a JSON object
  * You can use it to subscribe to events you want to use in your plugin.
  */
+<%% /shouldShowVerboseExampleComments %%>
 
 $SD.on("connected", jsonObj => connected(jsonObj));
 $SD.on("deviceDidConnect", jsonObj => console.log("deviceDidConnect", jsonObj));
@@ -52,12 +54,14 @@ const action = {
 		this.doSomeThing(this.settings, "onDidReceiveSettings", "orange");
 	},
 
+	<%% #shouldShowVerboseExampleComments %%>
 	/**
 	 * The 'willAppear' event is the first event a key will receive, right before it gets
 	 * showed on your Stream Deck and/or in Stream Deck software.
 	 * This event is a good place to setup your plugin and look at current settings (if any),
 	 * which are embedded in the events payload.
 	 */
+	<%% /shouldShowVerboseExampleComments %%>
 
 	onWillAppear: function(jsn) {
 		console.log(
@@ -65,6 +69,7 @@ const action = {
 			jsn.payload.settings
 		);
 
+		<%% #shouldShowVerboseExampleComments %%>
 		/**
 		 * "The willAppear event carries your saved settings (if any). You can use these settings
 		 * to setup your plugin or save the settings for later use.
@@ -74,6 +79,7 @@ const action = {
 		 *
 		 * $SD.api.getSettings(jsn.context);
 		 */
+		<%% /shouldShowVerboseExampleComments %%>
 		this.settings[jsonObj.context] = jsn.payload.settings;
 	},
 
@@ -82,11 +88,13 @@ const action = {
 	},
 
 	onSendToPlugin: function(jsn) {
+		<%% #shouldShowVerboseExampleComments %%>
 		/**
 		 * this is a message sent directly from the Property Inspector
 		 * (e.g. some value, which is not saved to settings)
 		 * You can send this event from Property Inspector (see there for an example)
 		 */
+		<%% /shouldShowVerboseExampleComments %%>
 
 		const sdpi_collection = Utils.getProp(jsn, "payload.sdpi_collection", {});
 		if (sdpi_collection.value && sdpi_collection.value !== undefined) {
@@ -98,6 +106,7 @@ const action = {
 		}
 	},
 
+	<%% #shouldShowVerboseExampleComments %%>
 	/**
 	 * Here's a quick demo-wrapper to show how you could change a key's title based on what you
 	 * stored in settings.
@@ -107,6 +116,7 @@ const action = {
 	 * @param {JSON} jsn // the JSON object passed from Stream Deck to the plugin, which contains the plugin's context
 	 *
 	 */
+	<%% /shouldShowVerboseExampleComments %%>
 
 	setTitle: function(jsn) {
 		if (
@@ -121,11 +131,13 @@ const action = {
 		}
 	},
 
+	<%% #shouldShowVerboseExampleComments %%>
 	/**
-	 * Finally here's a methood which gets called from various events above.
+	 * Finally here's a method which gets called from various events above.
 	 * This is just an idea how you can act on receiving some interesting message
 	 * from Stream Deck.
 	 */
+	<%% /shouldShowVerboseExampleComments %%>
 
 	doSomeThing: function(inJsonData, caller, tagColor) {
 		console.log(

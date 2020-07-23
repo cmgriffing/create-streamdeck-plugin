@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover"
-    />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>com.elgato.template Property Inspector</title>
-    <link rel="stylesheet" href="css/sdpi.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="../common.js"></script>
-    <%% #extraFeatures.obs %%>
-    <!-- We include obs-websocket directly because the repo doesnt export very cleanly for usage in our React app. We also need to make sure it is available for the app.js file to access, which is not currently bundled or compiled. -->
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover"
+		/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<title>com.elgato.template Property Inspector</title>
+		<link rel="stylesheet" href="css/sdpi.css" />
+	</head>
+	<body>
+		<div id="root"></div>
+		<script src="../common.js"></script>
+		<%% #extraFeatures.obs %%>
+		<!-- OBS -->
+		<%% #shouldShowVerboseExampleComments %%>
+		<!-- We include obs-websocket directly because the repo doesnt export very cleanly for usage in our React app. We also need to make sure it is available for the app.js file to access, which is not currently bundled or compiled. -->
+		<%% /shouldShowVerboseExampleComments %%>
 		<script src="../obs-websocket.js"></script>
 		<%% /extraFeatures.obs %%>
-    <script src="js/index.js"></script>
-  </body>
+		<script src="js/index.js"></script>
+	</body>
 </html>

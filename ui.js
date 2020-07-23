@@ -44,6 +44,11 @@ eventual options:
 
 */
 
+const booleanOptions = [
+	{ label: "Yes", value: true },
+	{ label: "No", value: false }
+];
+
 const availableOptionsMap = {
 	obs: "OBS",
 	spotify: "Spotify"
@@ -66,6 +71,15 @@ const App = ({ name }) => {
 	);
 	const [projectPath, setProjectPath] = useState("");
 	const [projectPathSelected, setProjectPathSelected] = useState(false);
+
+	const [
+		shouldShowVerboseExampleComments,
+		setShouldShowVerboseExampleComments
+	] = useState(true);
+	const [
+		shouldShowVerboseExampleCommentsSelected,
+		setShouldShowVerboseExampleCommentsSelected
+	] = useState(false);
 
 	const [extraFeatures, setExtraFeatures] = useState([]);
 	const [extraFeaturesSelected, setExtraFeaturesSelected] = useState(false);
@@ -163,7 +177,31 @@ const App = ({ name }) => {
 				</Box>
 			)}
 
-			{projectNamespaceSelected && !extraFeaturesSelected && (
+			{projectNamespaceSelected && !shouldShowVerboseExampleCommentsSelected && (
+				<Box>
+					<Box marginRight={1}>Show Verbose Example Comments:</Box>
+					<SelectInput
+						items={booleanOptions}
+						onSelect={selection => {
+							setShouldShowVerboseExampleComments(selection.value);
+							setShouldShowVerboseExampleCommentsSelected(true);
+						}}
+					/>
+				</Box>
+			)}
+
+			{shouldShowVerboseExampleCommentsSelected && (
+				<Box>
+					<Box marginRight={1}>Show Verbose Example Comments:</Box>
+					<Text>
+						<Color green>
+							{shouldShowVerboseExampleComments ? "Yes" : "No"}
+						</Color>
+					</Text>
+				</Box>
+			)}
+
+			{shouldShowVerboseExampleCommentsSelected && !extraFeaturesSelected && (
 				<>
 					<MultiSelect
 						items={availableOptions}
@@ -182,7 +220,8 @@ const App = ({ name }) => {
 								projectName,
 								camelizedProjectName: camelize(projectName),
 								projectPath,
-								extraFeatures: newExtraFeaturesMap
+								extraFeatures: newExtraFeaturesMap,
+								shouldShowVerboseExampleComments
 							});
 							setTimeout(() => {
 								setFinished(true);
