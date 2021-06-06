@@ -30,7 +30,7 @@ const useSDAction = createUseSDAction({
   useEffect
 });
 
-export default function App() {
+export default function ConfigView() {
   const getSettings = createGetSettings($SD);
   useEffect(getSettings, []);
 
